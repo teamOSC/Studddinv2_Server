@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<head>
+<meta charset="UTF-8">
+<title>Acadsurf</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+{% block head %}
+<style>
+	  body{
+	    font-family: monospace;
+	    margin-top: 50px;
+	  }
+	  
+</style>
+{% endblock %}
+</head>
+<body>
+
+<div class="container">
+  
+  <div class="jumbotron">
+    
+    <div class="row">
+      {% block content %}{% endblock %}
+    </div>
+
+  </div>
+  
+</div>
+
+  {% block script %}{% endblock %}
+</body>
+
+</html>                                   

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+	  body{
+	    font-family: monospace;
+	    margin-top: 200px;
+	    text-align: center;
+	  }
+	  .small{
+	  	font-size: 50px
+	  }
+	 
+</style>
+{% endblock %}
+
+{% block content %}
+	
+	<form class="form-horizontal" role="form" action="/search">
+	  <div class="form-group">
+	    <div class="col-sm-12">
+	      <input type="text" class="form-control" name="q" placeholder="Enter Search Keyword and press Enter">
+	    </div>
+	  </div>
+	</form>
+
+{% endblock %}
+

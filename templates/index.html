@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block head %}
+	
+	<style>
+	  .small{
+	  	font-size: 20px;
+	  }
+	  
+	</style>
+{% endblock %}
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+{% block content %}
+	
+	<p class="small"><a href="/">Back to Home</a> </p>
+
+	<div class="wiki">
+		<p>Results from Wikipedia.com</p>
+		
+		{% for i in wiki_data[:3]%}
+			<div class="result">
+				<a class="embedly-card" href="{{i["url"]}}">{{i["title"]}}</a>
+				<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+				<!--
+				<img src="{{i["image"]}}">
+				<a href="{{i["url"]}}">{{i["title"]}}</a>
+				-->	
+			</div>
+		{%endfor%}	
+	</div>
+
+	<hr class="sep">
+	
+	<div class="youtube">
+		<p>Results from youtube.com</p>
+		
+		{% for i in youtube_data[:10]%}
+			<div class="result">
+				<a class="embedly-card" href="https://www.youtube.com/watch?v={{i["id"]["videoId"]}}">{{i["snippet"]["title"]}}</a>
+				<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+				<!--
+				<iframe width="420" height="315" src="//www.youtube.com/embed/{{i["id"]["videoId"]}}?rel=0" frameborder="0" allowfullscreen></iframe>
+				-->
+			</div>
+		{%endfor%}	
+	</div>
+
+	<hr class="sep">
+
+	<div class="so">
+		<p>Results from stackoverflow.com</p>
+		
+		{% for i in so_data[:10]%}
+			<div class="result">
+				<a href="{{i["link"]}}">{{i["title"]}}</a>
+			</div>
+		{%endfor%}	
+	</div>
+
+	<hr class="sep">
+
+	<div class="reddit">
+		<p>Results from reddit.com</p>
+
+		{% for i in reddit_data[:10]%}
+			<div class="result">
+				<a href="{{i["data"]["url"]}}">{{i["data"]["title"]}}</a>
+			</div>
+		{%endfor%}	
+	</div>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
