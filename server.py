@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import flask, flask.views
 app = flask.Flask(__name__)
 import urllib2
@@ -9,6 +8,11 @@ from flask import render_template
 from flask import request
 import json
 import os
+import random, sqlite3
+
+CURR_PATH = os.path.dirname(os.path.realpath(__file__))
+conn = sqlite3.connect(CURR_PATH + '/videos.db',check_same_thread=False)
+c = conn.cursor()
 
 from scraper import DB,chanell_names
 from bs4 import BeautifulSoup
@@ -122,7 +126,11 @@ def feed():
     if 'biology' in interests:
         arr.append(scrapeQuora('Biology-1'))
     arr = arr[0]
-    return flask.render_template('feed.html',arr=arr)
+    data = get_random(5)
+    for i in data:
+        print i[2]
+    return flask.render_template('feed.html', arr=arr, data=data)
+    #return flask.render_template('feed.html', arr=arr)
 
 
 @app.route('/search.json')
@@ -159,7 +167,35 @@ def Search():
 
     return flask.render_template('index.html',wiki_data=wiki_data,youtube_data=youtube_data,reddit_data=reddit_data,so_data=so_data)
 
+def get_random(n):
 
+    chanell_names = 'MIT:MIT,khanacademy:Khan Academy,nptelhrd:NPTEL HRD,1veritasium:Veritasium,vsauce:V-Sauce,CGPGrey:CGP Grey,minutephysics:Minute Physics,destinws2:destin WS,scishow:Sci Show,crashcourse:Crash Course,AsapSCIENCE:Asap Science,numberphile:Numberphile,TheBadAstronomer:The Bad Astronomer,ACDCLeadership:ACDC Leadership,arinjayjain1979:Arinjay Jain,smithsonianchannel:Smithsonian Channel,historychannel:History Channel,periodicvideos:Periodic Videos,sixtysymbols:Sixty Symbols,Computerphile:Computerphile,FavScientist:Fav Scientist,coursera:Coursera,TEDxTalks:TedxTalks,bkraz333:BkRaz333,virtualschooluk:Virtual School UK,SpaceRip:Space RIP,bozemanbiology:BozeMan Biology,MindsetLearn: Mindset Learn,Mathbyfives:Math by Fives,jayates79:JayaTes79,MathTV:MathTV'
+
+    chanell_names = chanell_names.split(",")
+    ls = []
+    for i in chanell_names:
+        x = i.split(":")
+        #print x[0]
+        ls.append(x[0])
+
+    result_list = []
+
+    for i in range(n):
+        q = random.choice(ls)
+        foo = db_search(q)
+        bar = random.choice(foo)
+        result_list.append(bar)
+
+    return result_list
+
+def db_search(query):
+    sql = "select * from video_db where chanell LIKE '%%%s%%'"%(query)
+    c.execute(sql)
+    result_arr = []
+    for row in c:
+        result_arr.append(row)
+
+    return result_arr
 
 if __name__ == '__main__':
     app.debug = True

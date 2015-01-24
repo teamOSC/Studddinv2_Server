@@ -11,11 +11,19 @@
 {% endblock %}
 
 {% block content %}
-	{% for i in arr%}
+	{% for i in arr[:3]%}
 		<div class="result">
 			<a href="{{i["link"]}}" target="blank">{{i["title"]}}</a>
 		</div>
 	{%endfor%}
+
+    <br>
+
+    {% for i in data %}
+        <div class="result">
+            <a href="{{ i[2] }}" target="blank">{{ i[1] }}</a>
+        </div>
+    {% endfor %}
 	
 {% endblock %}
 
