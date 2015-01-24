@@ -9,7 +9,7 @@
 	  
 	</style>
 {% endblock %}
-
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
 {% block content %}
 	{% for i in arr[:3]%}
 		<div class="result">
@@ -21,8 +21,10 @@
 
     {% for i in data %}
         <div class="result">
-            <a href="{{ i[2] }}" target="blank">{{ i[1] }}</a>
-        </div>
+				<a class="embedly-card" href="https://www.youtube.com/watch?v={{ i[0] }}">{{i[1]}}</a>
+				<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
+			</div>
     {% endfor %}
 	
 {% endblock %}
