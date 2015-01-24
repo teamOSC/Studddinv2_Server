@@ -34,7 +34,7 @@ class DB(object):
         if query == '*':
             sql = "select * from video_db"
         else:
-            sql = "select * from video_db where chanell LIKE '%%%s%%'"%(query)
+            sql = "select * from video_db where title LIKE '%%%s%%'"%(query)
         cursor.execute(sql)
         for row in cursor:
             result_arr.append(row)
