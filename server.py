@@ -72,33 +72,13 @@ def reddit_api(query):
     json = requests.get(url,headers=headers).json()
     return json["data"]["children"]
 
-@app.route('/click')
-def click():
-    video_id = request.args.get('video_id')
-    D = DB()
-    D.click_append(video_id)
-
 
 @app.route('/')
 def home():
     return flask.render_template('homepage.html')
 
-@app.route('/search')
-def index():
-    q = request.args.get('q') or 0
-    #wiki_arr = scrape_wiki(q)
-
-    if not q:
-        return "{'status':400,\n\t'response':'query(q) is a required parameter'}"
-
-    #arr = search(q)
-    arr =[]
-    if len(q.split(' ')) > 1:
-        for i in q.split(' '):
-            if len(i) < 4:
-                continue
-            #arr += search(i)
-    
+@app.route('/feed')
+def feed():
     dict_arr=[]
     for i in arr:
         d={}
@@ -115,6 +95,14 @@ def index():
         master_dict[chanell] = [i for i in dict_arr if i['chanell'] == chanell]
         if not master_dict[chanell]:
             del master_dict[chanell]
+
+
+@app.route('/search')
+def Search():
+    q = request.args.get('q') or 0
+
+    if not q:
+        return "{'status':400,\n\t'response':'query(q) is a required parameter'}"
 
     wiki_data = scrape_wiki(q)
     youtube_data = youtube_api(q)
