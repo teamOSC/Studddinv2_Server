@@ -9,8 +9,10 @@
 	  
 	</style>
 {% endblock %}
+
 <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
 {% block content %}
+    <h2>FEED</h2>
 	{% for i in arr[:3]%}
 		<div class="result">
 			<a href="{{i["link"]}}" target="blank">{{i["title"]}}</a>

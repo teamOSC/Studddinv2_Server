@@ -132,6 +132,12 @@ def feedApi():
 
     return json.dumps(arr)
 
+@app.route('/feed.json.test',methods=['GET'])
+def feed_fake_data():
+    data = get_random(10)
+    return json.dumps(data)
+
+
 @app.route('/feed',methods=['GET'])
 def feed():
     arr = []
@@ -149,8 +155,6 @@ def feed():
         arr.append(scrapeQuora('Biology-1'))
     arr = arr[0]
     data = get_random(5)
-    for i in data:
-        print i[2]
     return flask.render_template('feed.html', arr=arr, data=data)
     #return flask.render_template('feed.html', arr=arr)
 
