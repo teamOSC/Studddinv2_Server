@@ -9,6 +9,7 @@ from flask import request
 import json
 import os
 import random, sqlite3
+import grequests
 
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
 conn = sqlite3.connect(CURR_PATH + '/videos.db',check_same_thread=False)
@@ -21,6 +22,8 @@ import requests
 
 orig_chan_name = []
 fake_chan_name = []
+count = 0
+so_numbers = dict()
 for i in chanell_names.split(','):
     orig_chan_name.append(i.split(':')[0].lower())
     fake_chan_name.append(i.split(':')[1])
@@ -58,9 +61,28 @@ def scrape_wiki(query):
     return arr
 
 def stackoverflow_api(query):
-    url = "https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=votes&q=%s&site=math"%query
-    json = requests.get(url).json()
-    return json["items"]
+    sites = [
+        "https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=votes&q=%s&site=math"%query,
+        "https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=votes&q=%s&site=chemistry"%query,
+        "https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=votes&q=%s&site=physics"%query,
+        "https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=votes&q=%s&site=biology"%query
+    ]
+    async_list = []
+
+    for site in sites:
+        action_item = grequests.get(site, hooks = {'response' : get_so_api_data})
+        async_list.append(action_item)
+
+    grequests.map(async_list)
+
+def get_so_api_data(api_data, **kwargs):
+    elements = api_data.json()
+    global count
+    if len(elements["items"]) > count:
+        global count
+        count = len(api_data.json()["items"])
+        global so_numbers
+        so_numbers = elements
 
 def youtube_api(query):
     url = "https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyD05WKF7JQ1hHmkgxb2L47OzApqaSy0pH8&q=%s"%query
@@ -143,7 +165,9 @@ def SearchApi():
     wiki_data = scrape_wiki(q)
     youtube_data = youtube_api(q)
     reddit_data = reddit_api(q)
-    so_data = stackoverflow_api(q)
+    stackoverflow_api(q)
+    global so_numbers
+    so_data = so_numbers
 
     return json.dumps({
        'wiki_data':wiki_data,
@@ -163,8 +187,9 @@ def Search():
     wiki_data = scrape_wiki(q)
     youtube_data = youtube_api(q)
     reddit_data = reddit_api(q)
-    so_data = stackoverflow_api(q)
-
+    stackoverflow_api(q)
+    global so_numbers
+    so_data = so_numbers
     return flask.render_template('index.html',wiki_data=wiki_data,youtube_data=youtube_data,reddit_data=reddit_data,so_data=so_data)
 
 def get_random(n):
@@ -199,4 +224,4 @@ def db_search(query):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=8000)
