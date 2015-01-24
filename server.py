@@ -121,7 +121,7 @@ def feed():
         arr.append(scrapeQuora('Mathematics'))
     if 'biology' in interests:
         arr.append(scrapeQuora('Biology-1'))
-
+    arr = arr[0]
     return flask.render_template('feed.html',arr=arr)
 
 
