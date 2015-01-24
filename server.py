@@ -39,7 +39,7 @@ def get_original_image(thumbnail_url):
 
 def scrape_wiki(query):
     url = 'http://en.wikipedia.org/w/api.php?action=opensearch&limit=10&format=xml&search=%s&namespace=0'%(query)
-    soup = BeautifulSoup( urllib2.urlopen(url).read() ,'xml' )
+    soup = BeautifulSoup( urllib2.urlopen(url).read(), 'xml')
     arr =[]
     for q in soup.find_all("Item"):
         try:
@@ -53,8 +53,8 @@ def scrape_wiki(query):
             pass
     return arr
 
-def stackoverflow_api(query,site='math'):
-    url = "https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=votes&q=%s&site=%s"%(query,site)
+def stackoverflow_api(query):
+    url = "https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=votes&q=%s&site=math"%query
     json = requests.get(url).json()
     return json["items"]
 
@@ -133,10 +133,14 @@ def Search():
     so_data = stackoverflow_api(q)
 
     #master_dict['wikipedia'] = wiki_arr
-    return flask.render_template('index.html',wiki_data=wiki_data,youtube_data=youtube_data,reddit_data=reddit_data,so_data=so_data)
+    return json.dumps({
+       'wiki_data':wiki_data,
+       'youtube_data':youtube_data,
+       'reddit_data':reddit_data,
+       'so_data':so_data,
+    }, indent=4)
+    # return flask.render_template('index.html',wiki_data=wiki_data,youtube_data=youtube_data,reddit_data=reddit_data,so_data=so_data)
 
 if __name__ == '__main__':
-    #print stackoverflow_api("food")
     app.debug = True
-    app.run(host='0.0.0.0')
-
+    app.run(host='0.0.0.0', port=8000)
