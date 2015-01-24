@@ -89,9 +89,11 @@ def scrapeQuora(category):
     return arr
 
 @app.route('/feed.json',methods=['GET'])
-def feed():
+def feedApi():
     arr = []
     interests = request.args.get('interests') or ''
+    if not interests:
+        interests = 'physics,maths'
 
     if 'physics' in interests:
         arr.append(scrapeQuora('Physics'))
@@ -108,6 +110,8 @@ def feed():
 def feed():
     arr = []
     interests = request.args.get('interests') or ''
+    if not interests:
+        interests = 'physics,maths'
 
     if 'physics' in interests:
         arr.append(scrapeQuora('Physics'))
@@ -118,8 +122,29 @@ def feed():
     if 'biology' in interests:
         arr.append(scrapeQuora('Biology-1'))
 
-    return json.dumps(arr)
+    return flask.render_template('feed.html',arr=arr)
 
+
+@app.route('/search.json')
+def SearchApi():
+    q = request.args.get('q') or 0
+
+    if not q:
+        return "{'status':400,\n\t'response':'query(q) is a required parameter'}"
+
+    wiki_data = scrape_wiki(q)
+    youtube_data = youtube_api(q)
+    reddit_data = reddit_api(q)
+    so_data = stackoverflow_api(q)
+
+    return json.dumps({
+       'wiki_data':wiki_data,
+       'youtube_data':youtube_data,
+       'reddit_data':reddit_data,
+       'so_data':so_data,
+    }, indent=4)
+    
+    
 @app.route('/search')
 def Search():
     q = request.args.get('q') or 0
@@ -132,15 +157,10 @@ def Search():
     reddit_data = reddit_api(q)
     so_data = stackoverflow_api(q)
 
-    #master_dict['wikipedia'] = wiki_arr
-    return json.dumps({
-       'wiki_data':wiki_data,
-       'youtube_data':youtube_data,
-       'reddit_data':reddit_data,
-       'so_data':so_data,
-    }, indent=4)
-    # return flask.render_template('index.html',wiki_data=wiki_data,youtube_data=youtube_data,reddit_data=reddit_data,so_data=so_data)
+    return flask.render_template('index.html',wiki_data=wiki_data,youtube_data=youtube_data,reddit_data=reddit_data,so_data=so_data)
+
+
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=5000)

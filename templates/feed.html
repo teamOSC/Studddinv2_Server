@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block head %}
+	
+	<style>
+	  .small{
+	  	font-size: 20px;
+	  }
+	  
+	</style>
+{% endblock %}
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+{% block content %}
+	
+	{% for i in arr%}
+		<div class="result">
+			<a href="{{i["link"]}}">{{i["title"]}}</a>
+		</div>
+	{%endfor%}
+	
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
