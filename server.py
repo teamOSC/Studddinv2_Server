@@ -105,13 +105,14 @@ def home():
 
 def scrapeQuora(category):
     url = "http://www.quora.com/%s/rss"%category
-    soup = BeautifulSoup( urllib2.urlopen(url).read() ,'xml' )
+    soup = BeautifulSoup( urllib2.urlopen(url).read(), 'xml' )
     arr =[]
     for q in soup.find_all("item"):
         d = {}
         d['title'] = q.find('title').get_text()
         d['link'] = q.find('link').get_text()
         arr.append(d)
+
     return arr
 
 @app.route('/feed.json',methods=['GET'])
@@ -120,22 +121,49 @@ def feedApi():
     interests = request.args.get('interests') or ''
     if not interests:
         interests = 'physics,maths'
+    length = len(interests.split(","))
 
     if 'physics' in interests:
-        arr.append(scrapeQuora('Physics'))
+        arr.append(get_data('Physics', length))
+        #arr.append(scrapeQuora('Physics'))
     if 'chemistry' in interests:
-        arr.append(scrapeQuora('Chemistry'))
+        arr.append(get_data('Chemistry', length))
     if 'math' in interests:
-        arr.append(scrapeQuora('Mathematics'))
+        arr.append(get_data('Mathematics', length))
     if 'biology' in interests:
-        arr.append(scrapeQuora('Biology-1'))
+        arr.append(get_data('Biology-1', length))
 
     return json.dumps(arr)
 
-@app.route('/feed.json.test',methods=['GET'])
-def feed_fake_data():
-    data = get_random(10)
-    return json.dumps(data)
+number = 0
+
+def get_data(interest, l):
+    global number
+    number = number + 1
+    total = int(100/l)
+    name = 'json_data/'+interest+'.json'
+    data = ""
+    if(number>5):
+        data = scrapeQuora(interest)
+        f = open(name, 'w')
+        f.write(json.dumps(data))
+        f.close()
+        number = 0
+    else:
+        f = open(name)
+        data = f.read()
+    #print data
+    return data
+
+
+@app.route('/feed_populate.json', methods=['GET'])
+def feed_populate():
+    arr = []
+    arr.append(scrapeQuora('Mathematics'))
+    mathematics_json = json.dumps(arr)
+
+    print arr
+    return json.dumps(arr)
 
 
 @app.route('/feed',methods=['GET'])
