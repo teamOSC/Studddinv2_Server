@@ -12,7 +12,7 @@ import json
 import os
 import random, sqlite3
 import grequests
-from dbHelper import FeedDB,VideosDB
+from dbHelper import VideosDB
 
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
 conn = sqlite3.connect(CURR_PATH + '/videos.db',check_same_thread=False)
@@ -165,7 +165,7 @@ def giveaway_add():
     else:
         pass
         # flash an error message
-    return flask.redirect("/#sa")
+    return flask.redirect("/giveaway#sa")
 
 
 if __name__ == '__main__':
