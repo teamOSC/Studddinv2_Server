@@ -10,6 +10,7 @@ import json
 import os
 import random, sqlite3
 import grequests
+from dbHelper import FeedDB,VideosDB
 
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
 conn = sqlite3.connect(CURR_PATH + '/videos.db',check_same_thread=False)
@@ -102,58 +103,13 @@ def reddit_api(query):
 @app.route('/')
 def home():
     return flask.render_template('homepage.html')
-
-def scrapeQuora(category):
-    url = "http://www.quora.com/%s/rss"%category
-    soup = BeautifulSoup( urllib2.urlopen(url).read(), 'xml' )
-    arr =[]
-    for q in soup.find_all("item"):
-        d = {}
-        d['title'] = q.find('title').get_text()
-        d['link'] = q.find('link').get_text()
-        arr.append(d)
-
-    return arr
+    
 
 @app.route('/feed.json',methods=['GET'])
 def feedApi():
     arr = []
     interests = request.args.get('interests') or ''
-    if not interests:
-        interests = 'physics,maths'
-    length = len(interests.split(","))
-
-    if 'physics' in interests:
-        arr.append(get_data('Physics', length))
-        #arr.append(scrapeQuora('Physics'))
-    if 'chemistry' in interests:
-        arr.append(get_data('Chemistry', length))
-    if 'math' in interests:
-        arr.append(get_data('Mathematics', length))
-    if 'biology' in interests:
-        arr.append(get_data('Biology-1', length))
-
-    return json.dumps(arr)
-
-number = 0
-
-def get_data(interest, l):
-    global number
-    number = number + 1
-    total = int(100/l)
-    name = 'json_data/'+interest+'.json'
-    data = ""
-    if(number>5):
-        data = scrapeQuora(interest)
-        f = open(name, 'w')
-        f.write(json.dumps(data))
-        f.close()
-        number = 0
-    else:
-        f = open(name)
-        data = f.read()
-    #print data
-    return data
+    FDB = FeedDB()
 
 
 @app.route('/feed_populate.json', methods=['GET'])
