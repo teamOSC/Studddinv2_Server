@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block head %}
+	
+	<style>
+	  .small{
+	  	font-size: 20px;
+	  }
+	  
+	</style>
+{% endblock %}
+<script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+{% block content %}
+
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1434923293417681&version=v2.0";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+	
+	<p class="small"><a href="/">Back to Home</a> </p>
+
+	 <form id="login_form" class="form-horizontal" enctype="multipart/form-data" action='/login' method='GET'>
+
+          <h2 id="form_title">Please Login to continue</h2>
+          <div class="form-group">
+            <input type="text" name='user_name' class="form-control" placeholder="username">
+            <input type="password" name='user_password' class="form-control" placeholder="password" >
+          </div>
+          <br>
+          <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-10">
+              <button type="submit" class="btn btn-primary">Go</button>
+            </div>
+          </div>
+
+      </form>
+	</div>
+
+	<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>
+
+	<hr class="sep">
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
