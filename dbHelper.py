@@ -5,36 +5,29 @@ import sqlite3
 import hashlib
 import urlparse
 import sys
+from bs4 import BeautifulSoup
+import urllib2
+from models import Feed
 
+def scrapeQuora():
+    cat_string = 'Physics,Chemistry,Mathematics,Biology-1,Geography,Economics,History'
+    cat_arr = cat_string.split(',')
+    for category in cat_arr:
+        url = "http://www.quora.com/%s/rss"%category
+        print url
+        if category == 'Biology-1':
+            category = 'Biology'
+        soup = BeautifulSoup( urllib2.urlopen(url).read(), 'xml' )
 
-def scrapeQuora(category):
-    url = "http://www.quora.com/%s/rss"%category
-    soup = BeautifulSoup( urllib2.urlopen(url).read(), 'xml' )
-    arr =[]
-    for q in soup.find_all("item"):
-        d = {}
-        d['title'] = q.find('title').get_text()
-        d['link'] = q.find('link').get_text()
-        arr.append(d)
+        for q in soup.find_all("item"):
+            title = q.find('title').get_text()
+            print title
+            link = q.find('link').get_text()
+            f = Feed(title=title,url=link,\
+                image='http://rachelhoweconsulting.com/wp-content/uploads/2011/08/Rachel-Howe-on-Quora.png',\
+                category=category)
+            f.save()
 
-    return arr
-
-def addFeed(interests):
-    if not interests:
-        interests = 'physics,maths'
-    length = len(interests.split(","))
-
-    if 'physics' in interests:
-        arr.append(get_data('Physics', length))
-        #arr.append(scrapeQuora('Physics'))
-    if 'chemistry' in interests:
-        arr.append(get_data('Chemistry', length))
-    if 'math' in interests:
-        arr.append(get_data('Mathematics', length))
-    if 'biology' in interests:
-        arr.append(get_data('Biology-1', length))
-
-    return json.dumps(arr)
 
 class VideosDB():
     file_name = 'videos.db'
@@ -61,58 +54,13 @@ class VideosDB():
         return result_arr
 
 
-class FeedDB():
-    file_name = 'feed.db'
-
-    def __init__(self):
-        self.conn = sqlite3.connect(self.file_name, check_same_thread=False)
-        self.c = self.conn.cursor()
-        self.create_table()
-
-    def create_table(self):
-        # create new db and make connection
-        self.c.execute(
-            '''CREATE TABLE IF NOT EXISTS feed (count INTEGER PRIMARY KEY AUTOINCREMENT, \
-                title TEXT, url TEXT UNIQUE, \
-                image TEXT default '',\
-                description TEXT default '',\
-                featured BOOLEAN default False)''')
-        self.conn.commit()
-
-    
-    def add_to_db(self,title,url,image='',description='',featured=False):
-        self.c.execute(
-            "INSERT or IGNORE INTO feed(title,url,image,description,featured) VALUES (?,?,?,?,?)",
-            (title,url,image,description,featured))
-        self.conn.commit()
-
-    def exec_transaction(self,arr):
-        self.c.executemany("insert or ignore into feed(title,url,image,description,featured) values (?,?,?,?,?)", arr)
-        self.conn.commit()
-
-
-    def exec_query(self, query):
-        result_arr = []
-        try:
-            self.c.execute(query)
-            self.conn.commit()
-            for row in self.c:
-                result_arr.append(row)
-        except:
-            result_arr = []
-        return result_arr
-
-
 def test():
-    D = FeedDB()
-    #print D.exec_query('Select * from posts')
-    D.add_to_db('example title','http://imgur.caom/qrVUksea.jpg')
     V = VideosDB()
     print V.exec_query("Select * from video_db ORDER by RANDOM() limit 5")
 
 if __name__ == '__main__':
     if sys.argv[1] == 'scrape':
-        addFeed()    
+        scrapeQuora()   
     else:
         test()
 

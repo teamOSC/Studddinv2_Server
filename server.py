@@ -4,8 +4,10 @@ import flask, flask.views
 app = flask.Flask(__name__)
 import urllib2
 
-from flask import render_template
-from flask import request
+from parse_rest.connection import register
+from parse_rest.datatypes import Object, GeoPoint
+from models import *
+from flask import render_template, request, url_for, abort, g, flash
 import json
 import os
 import random, sqlite3
@@ -25,6 +27,7 @@ orig_chan_name = []
 fake_chan_name = []
 count = 0
 so_numbers = dict()
+
 for i in chanell_names.split(','):
     orig_chan_name.append(i.split(':')[0].lower())
     fake_chan_name.append(i.split(':')[1])
@@ -104,43 +107,10 @@ def reddit_api(query):
 def home():
     return flask.render_template('homepage.html')
     
-
-@app.route('/feed.json',methods=['GET'])
-def feedApi():
-    arr = []
-    interests = request.args.get('interests') or ''
-    FDB = FeedDB()
-
-
-@app.route('/feed_populate.json', methods=['GET'])
-def feed_populate():
-    arr = []
-    arr.append(scrapeQuora('Mathematics'))
-    mathematics_json = json.dumps(arr)
-
-    print arr
-    return json.dumps(arr)
-
-
 @app.route('/feed',methods=['GET'])
 def feed():
-    arr = []
-    interests = request.args.get('interests') or ''
-    if not interests:
-        interests = 'physics,maths'
-
-    if 'physics' in interests:
-        arr.append(scrapeQuora('Physics'))
-    if 'chemistry' in interests:
-        arr.append(scrapeQuora('Chemistry'))
-    if 'math' in interests:
-        arr.append(scrapeQuora('Mathematics'))
-    if 'biology' in interests:
-        arr.append(scrapeQuora('Biology-1'))
-    arr = arr[0]
-    data = get_random(5)
-    return flask.render_template('feed.html', arr=arr, data=data)
-    #return flask.render_template('feed.html', arr=arr)
+    arr = Feed.Query.all().limit(50)
+    return flask.render_template('feed.html', arr=arr)
 
 
 @app.route('/search.json')
@@ -180,35 +150,23 @@ def Search():
     so_data = so_numbers
     return flask.render_template('index.html',wiki_data=wiki_data,youtube_data=youtube_data,reddit_data=reddit_data,so_data=so_data)
 
-def get_random(n):
+@app.route('/giveaway', methods=['GET'])
+def giveaway_home():
+    arr = Post.Query.filter(is_deleted=0)
+    return flask.render_template('giveaway.html', arr=arr)
 
-    chanell_names = 'MIT:MIT,khanacademy:Khan Academy,nptelhrd:NPTEL HRD,1veritasium:Veritasium,vsauce:V-Sauce,CGPGrey:CGP Grey,minutephysics:Minute Physics,destinws2:destin WS,scishow:Sci Show,crashcourse:Crash Course,AsapSCIENCE:Asap Science,numberphile:Numberphile,TheBadAstronomer:The Bad Astronomer,ACDCLeadership:ACDC Leadership,arinjayjain1979:Arinjay Jain,smithsonianchannel:Smithsonian Channel,historychannel:History Channel,periodicvideos:Periodic Videos,sixtysymbols:Sixty Symbols,Computerphile:Computerphile,FavScientist:Fav Scientist,coursera:Coursera,TEDxTalks:TedxTalks,bkraz333:BkRaz333,virtualschooluk:Virtual School UK,SpaceRip:Space RIP,bozemanbiology:BozeMan Biology,MindsetLearn: Mindset Learn,Mathbyfives:Math by Fives,jayates79:JayaTes79,MathTV:MathTV'
+@app.route('/giveaway/add',methods=['GET'])
+def giveaway_add():
+    post_content = request.args.get('post_content')
+    user_id = request.args.get('user_id')
+    if 0 < len(post_content) < 140:
+        post = Post(content=post_content, user_id=user_id, is_deleted=0)
+        post.save()
+    else:
+        pass
+        # flash an error message
+    return flask.redirect("/#sa")
 
-    chanell_names = chanell_names.split(",")
-    ls = []
-    for i in chanell_names:
-        x = i.split(":")
-        #print x[0]
-        ls.append(x[0])
-
-    result_list = []
-
-    for i in range(n):
-        q = random.choice(ls)
-        foo = db_search(q)
-        bar = random.choice(foo)
-        result_list.append(bar)
-
-    return result_list
-
-def db_search(query):
-    sql = "select * from video_db where chanell LIKE '%%%s%%'"%(query)
-    c.execute(sql)
-    result_arr = []
-    for row in c:
-        result_arr.append(row)
-
-    return result_arr
 
 if __name__ == '__main__':
     app.debug = True
