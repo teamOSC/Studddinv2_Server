@@ -167,6 +167,10 @@ def giveaway_add():
         # flash an error message
     return flask.redirect("/giveaway#sa")
 
+@app.route('/login', methods=['GET'])
+def login():
+    return flask.render_template('login.html')
+
 
 if __name__ == '__main__':
     app.debug = True
