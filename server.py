@@ -4,8 +4,10 @@ import flask, flask.views
 app = flask.Flask(__name__)
 import urllib2
 
-from flask import render_template
-from flask import request
+from parse_rest.connection import register
+from parse_rest.datatypes import Object, GeoPoint
+from models import *
+from flask import render_template, request, url_for, abort, g, flash
 import json
 import os
 import random, sqlite3
@@ -223,6 +225,23 @@ def Search():
     global so_numbers
     so_data = so_numbers
     return flask.render_template('index.html',wiki_data=wiki_data,youtube_data=youtube_data,reddit_data=reddit_data,so_data=so_data)
+
+@app.route('/giveaway', methods=['GET'])
+def giveaway_home():
+    arr = Post.Query.filter(is_deleted=0)
+    return flask.render_template('giveaway.html', arr=arr)
+
+@app.route('/giveaway/add',methods=['GET'])
+def giveaway_add():
+    post_content = request.args.get('post_content')
+    user_id = request.args.get('user_id')
+    if 0 < len(post_content) < 140:
+        post = Post(content=post_content, user_id=user_id, is_deleted=0)
+        post.save()
+    else:
+        pass
+        # flash an error message
+    return flask.redirect("/#sa")
 
 def get_random(n):
 
