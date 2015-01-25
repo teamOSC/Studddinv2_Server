@@ -12,7 +12,7 @@ import json
 import os
 import random, sqlite3
 import grequests
-from dbHelper import FeedDB,VideosDB
+from dbHelper import VideosDB
 
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
 conn = sqlite3.connect(CURR_PATH + '/videos.db',check_same_thread=False)
@@ -150,10 +150,14 @@ def Search():
     so_data = so_numbers
     return flask.render_template('index.html',wiki_data=wiki_data,youtube_data=youtube_data,reddit_data=reddit_data,so_data=so_data)
 
-@app.route('/giveaway', methods=['GET'])
+@app.route('/giveaway')
 def giveaway_home():
     arr = Post.Query.filter(is_deleted=0)
     return flask.render_template('giveaway.html', arr=arr)
+
+@app.route('/giveaway/upload')
+def giveaway_upload():
+    return flask.render_template('upload.html')    
 
 @app.route('/giveaway/add',methods=['GET'])
 def giveaway_add():

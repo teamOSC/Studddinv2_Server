@@ -5,31 +5,10 @@
 
 
 {% block content %}
-
-  <div class="post add_form">
-
-      <form class="form-horizontal" enctype="multipart/form-data" action='/add' method='GET'>
-
-        <div class="row">
-          <div class="col-md-10">
-            <div class="form-group">
-              <textarea type="text" name='post_content' class="form-control input-lg" placeholder="Share something nice.."></textarea>
-              <input type="hidden" name='user_id' class="form-control" value="">
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="form-group">
-              <div class="col-xs-offset-2 col-xs-10">
-                <button id="add_btn" type="submit" class="btn btn-primary">Add</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </form>
-  </div>
   
-  <br><br>
+  <a href="/upload">
+    <button class="btn btn-lg">
+  </a>
 
   {% for i in arr %}
       <div class="row post">
