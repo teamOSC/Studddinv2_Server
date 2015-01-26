@@ -111,9 +111,10 @@ def home():
 @app.route('/feed',methods=['GET'])
 def feed():
     arr = Feed.Query.all().limit(50)
-    vids = VideosDB.get5()
-    vids += VideosDB.get5ted()
-    return flask.render_template('feed.html', arr=arr,vids=vids)
+    vids = None
+    #vids = VideosDB.get5()
+    #vids += VideosDB.get5ted()
+    return flask.render_template('feed.html', arr=arr, vids=vids)
 
 
 @app.route('/search.json')
@@ -181,6 +182,10 @@ def submit():
     institution = request.form.get('institute')
     email = request.form.get('user_email')
     passwd = request.form.get('user_password')
+    authData = request.form.get('authData')
+    #authData = "{"+authData+"}"
+    #print authData
+    #print json.loads(authData)
     u = User.signup(username=username, password=passwd, NAME=name,  INSTITUTE=institution, email=email)
     print "==================="
     return redirect('/')
@@ -200,10 +205,6 @@ def login_submission():
     u = User.login(username, passwd)
     arr = Feed.Query.all().limit(50)
     return flask.render_template('feed.html', u=u, arr=arr)
-
-@app.route('/loggedin', methods=['GET'])
-def loggedin():
-    return flask.render_template('loggedin.html')
 
 
 if __name__ == '__main__':

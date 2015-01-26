@@ -11,6 +11,100 @@
 <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
 {% block content %}
 
+<script>
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+        console.log(response.name);
+      // Logged into your app and Facebook.
+        var pass = response.authResponse.userID + "passKey";
+        document.getElementById('authData').value = "\"facebook\":{\"access_token\":\""+response.authResponse.accessToken+"\", \"expiration_date\":\""+response.authResponse.expiresIn+"\", \"id\":\""+response.authResponse.userID+"\"}";
+        document.getElementById('user_password').value = pass;
+        //alert(pass);
+        document.getElementById('user_name').value = response.authResponse.userID;
+      testAPI();
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into Facebook.';
+    }
+  }
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '903137443064438',
+    cookie     : true,  // enable cookies to allow the server to access
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.1' // use version 2.1
+  });
+
+  // Now that we've initialized the JavaScript SDK, we call
+  // FB.getLoginStatus().  This function gets the state of the
+  // person visiting this page and can return one of three states to
+  // the callback you provide.  They can be:
+  //
+  // 1. Logged into your app ('connected')
+  // 2. Logged into Facebook, but not your app ('not_authorized')
+  // 3. Not logged into Facebook and can't tell if they are logged into
+  //    your app or not.
+  //
+  // These three cases are handled in the callback function.
+
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function testAPI() {
+    //console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      //console.log('Successful login for: ' + response.name);
+        //alert(response.name);
+      //document.getElementById('status').innerHTML =
+      //  'Thanks for logging in, ' + response.name + '!';
+        document.getElementById('name').value = response.name;
+        document.getElementById('user_email').value = response.email;
+        document.getElementById('login_form').submit();
+        //window.location = "/loggedin"
+
+    });
+  }
+</script>
+
 <p class="small"><a href="/">Back to Home</a> </p>
 
 <div>
@@ -18,11 +112,12 @@
 
           <h2 id="form_title">Register</h2>
           <div class="form-group">
-              <input type="text" name='name' class="form-control" placeholder="name" required="True"><br>
-            <input type="text" name='user_name' class="form-control" placeholder="username" required="True"><br>
-            <input type="password" name='user_password' class="form-control" placeholder="password" required="True"><br>
-            <input type="text" name='user_email' class="form-control" placeholder="e-mail" required="True"><br>
-              <input type="text" name='user_institute' class="form-control" placeholder="institute" required="True"><br>
+              <input id="name" type="text" name='name' class="form-control" placeholder="name" required="True"><br>
+            <input id="user_name" type="text" name='user_name' class="form-control" placeholder="username" required="True"><br>
+            <input id="user_password" type="password" name='user_password' class="form-control" placeholder="password" required="True"><br>
+            <input id="user_email" type="text" name='user_email' class="form-control" placeholder="e-mail" required="True"><br>
+              <input id="user_institute" type="text" name='user_institute' class="form-control" placeholder="institute"><br>
+              <input id="authData" type="" name='authData' class="form-control"  style="visibility: hidden"><br>
 
           </div>
           <br>
@@ -34,6 +129,9 @@
 
       </form>
 	</div>
+
+    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
 
 <hr class="sep">
 

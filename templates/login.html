@@ -23,7 +23,13 @@
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
         console.log(response.name);
-      // Logged into your app and Facebook.
+        // Logged into your app and Facebook.
+        var pass = response.authResponse.userID + "passKey";
+        //alert("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+        document.getElementById('user_name').value = response.authResponse.userID;
+        document.getElementById('user_password').value = pass;
+        //alert(pass);
+
       testAPI();
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
@@ -88,12 +94,17 @@
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
+        document.getElementById('login_form').submit();
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
-        window.location = "/loggedin"
+        //alert('done');
+        //window.location = "/loggedin"
+
 
     });
+
+
   }
 </script>
 	
@@ -103,8 +114,8 @@
 
           <h2 id="form_title">Please Login to continue</h2>
           <div class="form-group">
-            <input type="text" name='user_name' class="form-control" placeholder="username" required="True">
-            <input type="password" name='user_password' class="form-control" placeholder="password" required="True">
+            <input id="user_name" type="text" name='user_name' class="form-control" placeholder="username" required="True">
+            <input id="user_password" type="password" name='user_password' class="form-control" placeholder="password" required="True">
           </div>
           <br>
           <div class="form-group">
@@ -120,10 +131,6 @@
 
     <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
-
-    <form style="visibility: hidden">
-    <input type="text" name="one">
-    </form>
 
 <div id="status">
 </div>
