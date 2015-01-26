@@ -50,7 +50,7 @@
 	<div class="so">
 		<p>Results from stackoverflow.com</p>
 		
-		{% for i in so_data[:10]%}
+		{% for i in so_data%}
 			<div class="result">
 				<a href="{{i["link"]}}">{{i["title"]}}</a>
 			</div>
