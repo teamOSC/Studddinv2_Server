@@ -1,16 +1,29 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>{% extends "base.html" %}
 
 {% block head %}
-	
+
 	<style>
 	  .small{
 	  	font-size: 20px;
 	  }
-	  
+
 	</style>
 {% endblock %}
 <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
 {% block content %}
+
+    <script>
+    window.location = "/feed";
+    </script>
 
 	<script>
   // This is called with the results from from FB.getLoginStatus().
@@ -67,11 +80,19 @@
   //
   // These three cases are handled in the callback function.
 
+
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
   });
 
   };
+
+  function logout() {
+      FB.logout(function(response) {
+          console.log("LOGGED OUT");
+        // Person is now logged out
+    });
+  }
 
   // Load the SDK asynchronously
   (function(d, s, id) {
@@ -91,39 +112,14 @@
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
-        window.location = "/loggedin"
 
     });
   }
 </script>
-	
-	<p class="small"><a href="/">Back to Home</a> </p>
-    <div>
-	 <form id="login_form" class="form-horizontal" enctype="multipart/form-data" action='/login/submit' method='POST'>
 
-          <h2 id="form_title">Please Login to continue</h2>
-          <div class="form-group">
-            <input type="text" name='user_name' class="form-control" placeholder="username" required="True">
-            <input type="password" name='user_password' class="form-control" placeholder="password" required="True">
-          </div>
-          <br>
-          <div class="form-group">
-            <div class="col-xs-offset-2 col-xs-10">
-              <button type="submit" class="btn btn-primary">Go</button>
-            </div>
-          </div>
-
-      </form>
-	</div>
+    <button type="button" onclick="logout();">LOGOUT</button>
 
 	<!--div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div-->
-
-    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
-
-    <form style="visibility: hidden">
-    <input type="text" name="one">
-    </form>
 
 <div id="status">
 </div>

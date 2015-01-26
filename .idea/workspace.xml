@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ec0d4a5-6160-4b3d-abe4-43e1a67ab56d" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/feed.html" afterPath="$PROJECT_DIR$/templates/feed.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/login.html" afterPath="$PROJECT_DIR$/templates/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.py" afterPath="$PROJECT_DIR$/server.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -31,46 +35,67 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="server.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="server.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4907563" vertical-offset="2300" max-vertical-offset="4770">
-              <caret line="144" column="13" selection-start-line="144" selection-start-column="13" selection-end-line="144" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3870">
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding>
-                <marker date="1422154033203" expanded="true" signature="7529:7579" placeholder="select * fro..video_db..." />
+                <element signature="e#46#71#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="feed.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="login.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/login.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-82.666664" vertical-offset="0" max-vertical-offset="2574">
+              <caret line="124" column="33" selection-start-line="124" selection-start-column="33" selection-end-line="124" selection-end-column="33" />
+              <folding>
+                <element signature="n#style#0;n#form#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="register.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/register.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-16.0" vertical-offset="0" max-vertical-offset="900">
+              <caret line="24" column="115" selection-start-line="24" selection-start-column="115" selection-end-line="24" selection-end-column="115" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loggedin.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/loggedin.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-14.0" vertical-offset="54" max-vertical-offset="2502">
+              <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468">
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="feed.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/feed.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="756">
-              <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="1458">
-              <caret line="43" column="18" selection-start-line="37" selection-start-column="12" selection-end-line="43" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="videos.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/videos.txt">
-          <provider selected="true" editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-            <state />
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="213390">
-              <caret line="1" column="195" selection-start-line="1" selection-start-column="195" selection-end-line="1" selection-end-column="195" />
+            <state vertical-scroll-proportion="2.6024096" vertical-offset="0" max-vertical-offset="2196">
+              <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -82,21 +107,6 @@
             <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="810">
               <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scraper.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scraper.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="3060">
-              <caret line="36" column="52" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
-              <folding>
-                <marker date="1422112935351" expanded="true" signature="1440:1462" placeholder="select * fro..video_db..." />
-                <marker date="1422112935351" expanded="true" signature="1497:1545" placeholder="select * fro..video_db..." />
-                <marker date="1422112935351" expanded="true" signature="1739:1877" placeholder="CREATE TABLE..video_db..." />
-                <marker date="1422112935351" expanded="true" signature="2004:2045" placeholder="INSERT INTO ..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -117,7 +127,12 @@
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/scraper.py" />
         <option value="$PROJECT_DIR$/try.py" />
+        <option value="$PROJECT_DIR$/settings.py" />
+        <option value="$PROJECT_DIR$/models.py" />
+        <option value="$PROJECT_DIR$/templates/register.html" />
+        <option value="$PROJECT_DIR$/templates/loggedin.html" />
         <option value="$PROJECT_DIR$/templates/feed.html" />
+        <option value="$PROJECT_DIR$/templates/login.html" />
         <option value="$PROJECT_DIR$/server.py" />
       </list>
     </option>
@@ -192,7 +207,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../dashboard" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flask-oauth/example" />
     <property name="recentsLimit" value="5" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
@@ -528,7 +543,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4266">
           <caret line="118" column="12" selection-start-line="118" selection-start-column="12" selection-end-line="118" selection-end-column="12" />
           <folding>
-            <marker date="1422154033203" expanded="true" signature="7529:7579" placeholder="select * fro..video_db..." />
+            <element signature="e#46#71#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -537,14 +552,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="756">
           <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="1458">
-          <caret line="43" column="18" selection-start-line="37" selection-start-column="12" selection-end-line="43" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -573,10 +580,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="3060">
           <caret line="36" column="52" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
           <folding>
-            <marker date="1422112935351" expanded="true" signature="1440:1462" placeholder="select * fro..video_db..." />
-            <marker date="1422112935351" expanded="true" signature="1497:1545" placeholder="select * fro..video_db..." />
-            <marker date="1422112935351" expanded="true" signature="1739:1877" placeholder="CREATE TABLE..video_db..." />
-            <marker date="1422112935351" expanded="true" signature="2004:2045" placeholder="INSERT INTO ..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="select * fro..video_db..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="select * fro..video_db..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..video_db..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -586,7 +593,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4266">
           <caret line="118" column="12" selection-start-line="118" selection-start-column="12" selection-end-line="118" selection-end-column="12" />
           <folding>
-            <marker date="1422154033203" expanded="true" signature="7529:7579" placeholder="select * fro..video_db..." />
+            <element signature="e#46#71#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -595,14 +602,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="756">
           <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1458">
-          <caret line="43" column="18" selection-start-line="37" selection-start-column="12" selection-end-line="43" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -631,10 +630,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="3060">
           <caret line="36" column="52" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
           <folding>
-            <marker date="1422112935351" expanded="true" signature="1440:1462" placeholder="select * fro..video_db..." />
-            <marker date="1422112935351" expanded="true" signature="1497:1545" placeholder="select * fro..video_db..." />
-            <marker date="1422112935351" expanded="true" signature="1739:1877" placeholder="CREATE TABLE..video_db..." />
-            <marker date="1422112935351" expanded="true" signature="2004:2045" placeholder="INSERT INTO ..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="select * fro..video_db..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="select * fro..video_db..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..video_db..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -644,7 +643,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4194">
           <caret line="151" column="4" selection-start-line="151" selection-start-column="4" selection-end-line="152" selection-end-column="18" />
           <folding>
-            <marker date="1422154033203" expanded="true" signature="7529:7579" placeholder="select * fro..video_db..." />
+            <element signature="e#46#71#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -653,14 +652,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="756">
           <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="1458">
-          <caret line="43" column="18" selection-start-line="37" selection-start-column="12" selection-end-line="43" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -689,18 +680,11 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="3060">
           <caret line="36" column="52" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
           <folding>
-            <marker date="1422112935351" expanded="true" signature="1440:1462" placeholder="select * fro..video_db..." />
-            <marker date="1422112935351" expanded="true" signature="1497:1545" placeholder="select * fro..video_db..." />
-            <marker date="1422112935351" expanded="true" signature="1739:1877" placeholder="CREATE TABLE..video_db..." />
-            <marker date="1422112935351" expanded="true" signature="2004:2045" placeholder="INSERT INTO ..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="select * fro..video_db..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="select * fro..video_db..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..video_db..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08530806" vertical-offset="0" max-vertical-offset="633">
-          <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -744,10 +728,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="3060">
           <caret line="36" column="52" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
           <folding>
-            <marker date="1422112935351" expanded="true" signature="1440:1462" placeholder="select * fro..video_db..." />
-            <marker date="1422112935351" expanded="true" signature="1497:1545" placeholder="select * fro..video_db..." />
-            <marker date="1422112935351" expanded="true" signature="1739:1877" placeholder="CREATE TABLE..video_db..." />
-            <marker date="1422112935351" expanded="true" signature="2004:2045" placeholder="INSERT INTO ..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="select * fro..video_db..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="select * fro..video_db..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..video_db..." />
+            <marker date="1422112935351" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -771,29 +755,137 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="1458">
-          <caret line="43" column="18" selection-start-line="37" selection-start-column="12" selection-end-line="43" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="648">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/feed.html">
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="756">
-          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.093103446" vertical-offset="0" max-vertical-offset="580">
+          <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="580">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbHelper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.8310345" vertical-offset="716" max-vertical-offset="1296">
+          <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+          <folding>
+            <element signature="e#47#61#0" expanded="true" />
+            <marker date="1422185566355" expanded="true" signature="-1:-1" placeholder="Select * fro..video_db..." />
+            <marker date="1422185566355" expanded="true" signature="-1:-1" placeholder="Select * fro..video_db..." />
+            <marker date="1422185566355" expanded="true" signature="-1:-1" placeholder="Select * fro..video_db..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/credentials.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="608">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29605263" vertical-offset="0" max-vertical-offset="608">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/giveaway.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="608">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/flask/globals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7927632" vertical-offset="274" max-vertical-offset="882">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/parse_rest/user.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2598684" vertical-offset="1300" max-vertical-offset="2178">
+          <caret line="84" column="8" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4907563" vertical-offset="2300" max-vertical-offset="4770">
-          <caret line="144" column="13" selection-start-line="144" selection-start-column="13" selection-end-line="144" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3870">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
-            <marker date="1422154033203" expanded="true" signature="7529:7579" placeholder="select * fro..video_db..." />
+            <element signature="e#46#71#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-82.666664" vertical-offset="0" max-vertical-offset="2574">
+          <caret line="124" column="33" selection-start-line="124" selection-start-column="33" selection-end-line="124" selection-end-column="33" />
+          <folding>
+            <element signature="n#style#0;n#form#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.0" vertical-offset="0" max-vertical-offset="900">
+          <caret line="24" column="115" selection-start-line="24" selection-start-column="115" selection-end-line="24" selection-end-column="115" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/loggedin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.0" vertical-offset="54" max-vertical-offset="2502">
+          <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/feed.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.6024096" vertical-offset="0" max-vertical-offset="2196">
+          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
