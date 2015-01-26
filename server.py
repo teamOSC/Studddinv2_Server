@@ -111,7 +111,9 @@ def home():
 @app.route('/feed',methods=['GET'])
 def feed():
     arr = Feed.Query.all().limit(50)
-    return flask.render_template('feed.html', arr=arr)
+    vids = VideosDB.get5()
+    vids += VideosDB.get5ted()
+    return flask.render_template('feed.html', arr=arr,vids=vids)
 
 
 @app.route('/search.json')
