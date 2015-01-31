@@ -84,5 +84,4 @@ def reddit_api(query):
 def get_so_data(query):
     stackoverflow_api(query)
     global so_numbers
-    print so_numbers
     return so_numbers
