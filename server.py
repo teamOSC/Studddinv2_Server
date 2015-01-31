@@ -151,8 +151,8 @@ def facebook_authorized(resp):
     me = facebook.get('/me')
     user = User.Query.filter(email=me.data['email'])
     if not user:
-        authData = {"facebook": {"id": me.data['id'], "access_token": resp['access_token']}}
-        user = User.signup(NAME=me.data['name'], email=me.data['email'], authData=authData)
+        # authData = json.dumps({"facebook": {"id": me.data['id'], "access_token": resp['access_token']}})
+        user = User.signup(username=me.data['email'], password="123456", email=me.data['email'])
     return redirect(next_url)
 
 @app.route('/login/twitter/authorized')
