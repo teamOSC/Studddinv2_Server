@@ -6,18 +6,18 @@ from parse_rest.connection import register
 from parse_rest.datatypes import Object, GeoPoint
 from models import *
 import json, os, random, sqlite3, urllib, requests, urllib2
-# from dbHelper import VideosDB
+from dbHelper import VideosDB
 from settings import *
 from credentials import *
-import search
+# import search
 from flask_oauth import OAuth
-from decorators import login_required
+from decorators import login_required, is_loggedin
 
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
 conn = sqlite3.connect(CURR_PATH + '/videos.db', check_same_thread=False)
 c = conn.cursor()
 
-# from scraper import DB,chanell_names
+from scraper import DB,chanell_names
 from bs4 import BeautifulSoup
 
 oauth = OAuth()
@@ -41,22 +41,18 @@ twitter = oauth.remote_app('twitter',
     consumer_secret='xQmFnUSii54eS3iUrl0uIrxfeL4EfIdFc6iyoHUDgSIVGDbauD'
 )
 
-# for i in chanell_names.split(','):
-#     orig_chan_name.append(i.split(':')[0].lower())
-#     fake_chan_name.append(i.split(':')[1])
-
 @app.route('/')
 @login_required
-def home():
+def index():
     return flask.render_template('homepage.html')
 
-# @app.route('/feed',methods=['GET'])
-# def feed():
-#     arr = Feed.Query.all().limit(50)
-#     vids = None
-#     #vids = VideosDB.get5()
-#     #vids += VideosDB.get5ted()
-#     return flask.render_template('feed.html', arr=arr, vids=vids)
+@app.route('/feed',methods=['GET'])
+def feed():
+    arr = Feed.Query.all().limit(50)
+    vids = None
+    #vids = VideosDB.get5()
+    #vids += VideosDB.get5ted()
+    return flask.render_template('feed.html', arr=arr, vids=vids)
 
 
 # @app.route('/search.json')
@@ -121,47 +117,38 @@ def register_submit():
     name = request.form.get('name')
     email = request.form.get('user_email')
     password = request.form.get('user_password')
-    # authData = request.form.get('authData')
-    #authData = "{"+authData+"}"
-    #print authData
-    #print json.loads(authData)
     u = User.signup(username=email, password=password, email=email, NAME=name)
-    print "user",
-    print u
     u.save()
     session['oauth_token'] = (u.objectId,)
-    print session.items()
     return redirect('/')
 
 @app.route('/register')
+@is_loggedin
 def register():
-    return flask.render_template('register.html', next=request.args.get('next'))
+    return flask.render_template('register.html', next=request.args.get('next', None))
 
 @app.route('/login/facebook')
 def login_facebook():
     return facebook.authorize(callback=url_for('facebook_authorized',
-        next=request.args.get('next') or request.referrer or None,
+        next=request.args.get('next', None),
         _external=True))
 
 @app.route('/login/twitter')
 def login_twitter():
     return twitter.authorize(callback=url_for('twitter_authorized',
-        next=request.args.get('next') or request.referrer or None))
+        next=request.args.get('next', None)))
 
 
 @app.route('/login/facebook/authorized')
 @facebook.authorized_handler
 def facebook_authorized(resp):
     next_url = request.args.get('next') or url_for('index')
-    print "next",
-    print next_url
     if resp is None:
         return 'Access denied: reason=%s error=%s' % (
             request.args['error_reason'],
             request.args['error_description']
         )
     session['oauth_token'] = (resp['access_token'], '')
-    # print session['oauth_token']
     me = facebook.get('/me')
     user = User.Query.filter(email=me.data['email'])
     if not user:
