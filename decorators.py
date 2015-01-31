@@ -4,7 +4,8 @@ from flask import g, request, redirect, url_for, session
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if session['oauth_token'][0] is None:
+    	oauth_token = session.get('oauth_token', None)
+        if oauth_token is None:
             return redirect(url_for('register', next=request.url))
         return f(*args, **kwargs)
     return decorated_function

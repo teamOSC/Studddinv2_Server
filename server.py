@@ -135,8 +135,7 @@ def login_facebook():
 
 @app.route('/login/twitter')
 def login_twitter():
-    return twitter.authorize(callback=url_for('twitter_authorized',
-        next=request.args.get('next', None)))
+    return twitter.authorize(callback=url_for('twitter_authorized', next=request.args.get('next', None)))
 
 
 @app.route('/login/facebook/authorized')
