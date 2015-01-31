@@ -38,6 +38,15 @@ facebook = oauth.remote_app('facebook',
     request_token_params={'scope': 'email'}
 )
 
+twitter = oauth.remote_app('twitter',
+    base_url='https://api.twitter.com/1/',
+    request_token_url='https://api.twitter.com/oauth/request_token',
+    access_token_url='https://api.twitter.com/oauth/access_token',
+    authorize_url='https://api.twitter.com/oauth/authenticate',
+    consumer_key='FfUOeQ5OBuv0qOkdHbfXCrwdk',
+    consumer_secret='xQmFnUSii54eS3iUrl0uIrxfeL4EfIdFc6iyoHUDgSIVGDbauD'
+)
+
 # for i in chanell_names.split(','):
 #     orig_chan_name.append(i.split(':')[0].lower())
 #     fake_chan_name.append(i.split(':')[1])
@@ -130,10 +139,15 @@ def register():
     return flask.render_template('register.html')
 
 @app.route('/login/facebook')
-def login():
+def login_facebook():
     return facebook.authorize(callback=url_for('facebook_authorized',
         next=request.args.get('next') or request.referrer or None,
         _external=True))
+
+@app.route('/login/twitter')
+def login_twitter():
+    return twitter.authorize(callback=url_for('twitter_authorized',
+        next=request.args.get('next') or request.referrer or None))
 
 
 @app.route('/login/facebook/authorized')
@@ -153,10 +167,38 @@ def facebook_authorized(resp):
     #     (me.data['id'], me.data['name'], "http://localhost:8888/giveaway")
     return redirect(url_for('home'))
 
+@app.route('/login/twitter/authorized')
+@twitter.authorized_handler
+def twitter_authorized(resp):
+    next_url = request.args.get('next') or url_for('index')
+    if resp is None:
+        flash(u'You denied the request to sign in.')
+        return redirect(next_url)
+
+    session['oauth_token'] = (
+        resp['oauth_token'],
+        resp['oauth_token_secret']
+    )
+    session['twitter_user'] = resp['screen_name']
+    print resp
+
+    flash('You were signed in as %s' % resp['screen_name'])
+    return redirect(url_for('home'))
+
 
 @facebook.tokengetter
 def get_facebook_oauth_token():
     return session.get('oauth_token')
+
+@twitter.tokengetter
+def get_twitter_token():
+    return session.get('twitter_token')
+
+@app.route('/logout')
+def logout():
+    session['oauth_token'] = (None,)
+    return redirect(url_for('register'))
+
 
 # @app.route('/login/submit', methods=['POST'])
 # def login_submission():
