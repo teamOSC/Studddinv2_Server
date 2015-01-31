@@ -12,7 +12,8 @@ def login_required(f):
 def is_loggedin(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if session['oauth_token'][0] is not None:
+    	oauth_token = session.get('oauth_token', None)
+        if oauth_token is not None and oauth_token[0] is not None:
             return redirect(url_for('index'))
         return f(*args, **kwargs)
     return decorated_function
