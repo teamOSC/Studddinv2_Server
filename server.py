@@ -154,10 +154,6 @@ def facebook_authorized(resp):
     if not user:
         authData = {"facebook": {"id": me.data['id'], "access_token": resp['access_token']}}
         user = User.signup(NAME=me.data['name'], email=me.data['email'], authData=authData)
-    # print "yo"
-    # print me.data
-    # return 'Logged in as id=%s name=%s redirect=%s' % \
-    #     (me.data['id'], me.data['name'], "http://localhost:8888/giveaway")
     return redirect(next_url)
 
 @app.route('/login/twitter/authorized')
@@ -171,13 +167,10 @@ def twitter_authorized(resp):
         resp['oauth_token'],
         resp['oauth_token_secret']
     )
-    print resp
-    # authData = {"twitter": {"id": resp['user_id'], "access_token": resp['oauth_token']}}
-    # print resp
     session['twitter_user'] = resp['screen_name']
     user = User.Query.filter(username=resp['screen_name'])
     if not user:
-        user = User.signup(username=resp['screen_name'], password="123456") #authData=authData)
+        user = User.signup(username=resp['screen_name'], password="123456")
 
     flash('You were signed in as %s' % resp['screen_name'])
     return redirect(next_url)
@@ -195,16 +188,6 @@ def get_twitter_token():
 def logout():
     session['oauth_token'] = (None,)
     return redirect(url_for('register'))
-
-
-# @app.route('/login/submit', methods=['POST'])
-# def login_submission():
-#     username = request.form.get('user_name')
-#     passwd = request.form.get('user_password')
-#     u = User.login(username, passwd)
-#     arr = Feed.Query.all().limit(50)
-#     return flask.render_template('feed.html', u=u, arr=arr)
-
 
 if __name__ == '__main__':
     app.debug = True
