@@ -15,14 +15,15 @@
 
 <div>
 
-	 <form id="login_form" class="form-horizontal" enctype="multipart/form-data" action='/submit' method='POST'>
+	 <form id="login_form" class="form-horizontal" enctype="multipart/form-data" action='/register/submit' method='POST'>
 
     <h2 id="form_title">Register</h2>
     <div class="form-group">
         <input id="name" type="text" name='name' class="form-control" placeholder="name" required="True"><br>
         <input id="user_email" type="text" name='user_email' class="form-control" placeholder="e-mail" required="True"><br>
         <input id="user_password" type="password" name='user_password' class="form-control" placeholder="password" required="True"><br>
-        <input id="authData" type="" name='authData' class="form-control"  style="visibility: hidden"><br>
+        <input type="hidden" name='next' class="form-control" value="{{ next }}">
+        <!-- <input id="authData" type="" name='authData' class="form-control"  style="visibility: hidden"><br> -->
     </div>
     <br>
     <div class="form-group">
@@ -34,10 +35,12 @@
 
   <hr>
   <form id="login_form" class="form-horizontal" enctype="multipart/form-data" action='/login/facebook' method='GET'>
+    <input type="hidden" name='next' class="form-control" value="{{ next }}">
     <button type="submit" class="btn btn-primary">Sign up with Facebook</button>
   </form>
   <br>
   <form id="login_form" class="form-horizontal" enctype="multipart/form-data" action='/login/twitter' method='GET'>
+    <input type="hidden" name='next' class="form-control" value="{{ next }}">
     <button type="submit" class="btn btn-primary">Sign up with Twitter</button>
   </form>
 

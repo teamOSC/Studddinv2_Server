@@ -2,17 +2,16 @@
 # -*- coding: utf-8 -*-
 import flask, flask.views
 from flask import session, g, redirect, render_template, request, url_for, abort, flash
-import urllib2
-from flask_oauth import OAuth
 from parse_rest.connection import register
 from parse_rest.datatypes import Object, GeoPoint
 from models import *
-import json, os, random, sqlite3
+import json, os, random, sqlite3, urllib, requests, urllib2
 # from dbHelper import VideosDB
 from settings import *
 from credentials import *
 import search
 from flask_oauth import OAuth
+from decorators import login_required
 
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
 conn = sqlite3.connect(CURR_PATH + '/videos.db', check_same_thread=False)
@@ -20,11 +19,6 @@ c = conn.cursor()
 
 # from scraper import DB,chanell_names
 from bs4 import BeautifulSoup
-import urllib
-import requests
-
-# orig_chan_name = []
-# fake_chan_name = []
 
 oauth = OAuth()
 
@@ -52,6 +46,7 @@ twitter = oauth.remote_app('twitter',
 #     fake_chan_name.append(i.split(':')[1])
 
 @app.route('/')
+@login_required
 def home():
     return flask.render_template('homepage.html')
 
@@ -98,15 +93,18 @@ def home():
 #     return flask.render_template('index.html',wiki_data=wiki_data,youtube_data=youtube_data,reddit_data=reddit_data,so_data=so_data)
 
 @app.route('/giveaway')
+@login_required
 def giveaway_home():
     arr = Post.Query.filter(is_deleted=0)
     return flask.render_template('giveaway.html', arr=arr)
 
 @app.route('/giveaway/upload')
+@login_required
 def giveaway_upload():
     return flask.render_template('upload.html')
 
 @app.route('/giveaway/add',methods=['GET'])
+@login_required
 def giveaway_add():
     post_content = request.args.get('post_content')
     user_id = request.args.get('user_id')
@@ -118,25 +116,26 @@ def giveaway_add():
         # flash an error message
     return flask.redirect("/giveaway#sa")
 
-@app.route('/submit', methods=['POST'])
-def submit():
+@app.route('/register/submit', methods=['POST'])
+def register_submit():
     name = request.form.get('name')
-    username = request.form.get('user_name')
-    institution = request.form.get('institute')
     email = request.form.get('user_email')
-    passwd = request.form.get('user_password')
-    authData = request.form.get('authData')
+    password = request.form.get('user_password')
+    # authData = request.form.get('authData')
     #authData = "{"+authData+"}"
     #print authData
     #print json.loads(authData)
-    u = User.signup(username=username, password=passwd, NAME=name,  INSTITUTE=institution, email=email)
+    u = User.signup(username=email, password=password, email=email, NAME=name)
+    print "user",
+    print u
+    u.save()
+    session['oauth_token'] = (u.objectId,)
+    print session.items()
     return redirect('/')
 
 @app.route('/register')
 def register():
-    if session['oauth_token'][0] is not None:
-        return redirect('/')
-    return flask.render_template('register.html')
+    return flask.render_template('register.html', next=request.args.get('next'))
 
 @app.route('/login/facebook')
 def login_facebook():
@@ -153,19 +152,26 @@ def login_twitter():
 @app.route('/login/facebook/authorized')
 @facebook.authorized_handler
 def facebook_authorized(resp):
+    next_url = request.args.get('next') or url_for('index')
+    print "next",
+    print next_url
     if resp is None:
         return 'Access denied: reason=%s error=%s' % (
             request.args['error_reason'],
             request.args['error_description']
         )
     session['oauth_token'] = (resp['access_token'], '')
-    print session['oauth_token']
+    # print session['oauth_token']
     me = facebook.get('/me')
+    user = User.Query.filter(email=me.data['email'])
+    if not user:
+        authData = {"facebook": {"id": me.data['id'], "access_token": resp['access_token']}}
+        user = User.signup(NAME=me.data['name'], email=me.data['email'], authData=authData)
     # print "yo"
     # print me.data
     # return 'Logged in as id=%s name=%s redirect=%s' % \
     #     (me.data['id'], me.data['name'], "http://localhost:8888/giveaway")
-    return redirect(url_for('home'))
+    return redirect(next_url)
 
 @app.route('/login/twitter/authorized')
 @twitter.authorized_handler
@@ -174,16 +180,20 @@ def twitter_authorized(resp):
     if resp is None:
         flash(u'You denied the request to sign in.')
         return redirect(next_url)
-
     session['oauth_token'] = (
         resp['oauth_token'],
         resp['oauth_token_secret']
     )
-    session['twitter_user'] = resp['screen_name']
     print resp
+    # authData = {"twitter": {"id": resp['user_id'], "access_token": resp['oauth_token']}}
+    # print resp
+    session['twitter_user'] = resp['screen_name']
+    user = User.Query.filter(username=resp['screen_name'])
+    if not user:
+        user = User.signup(username=resp['screen_name'], password="123456") #authData=authData)
 
     flash('You were signed in as %s' % resp['screen_name'])
-    return redirect(url_for('home'))
+    return redirect(next_url)
 
 
 @facebook.tokengetter
