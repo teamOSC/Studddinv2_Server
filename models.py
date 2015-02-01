@@ -18,3 +18,6 @@ class Comment(Object):
 
 class Feed(Object):
 	pass
+
+class Listings(Object):
+    pass

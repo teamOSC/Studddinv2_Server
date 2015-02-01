@@ -91,8 +91,18 @@ def feed():
 @app.route('/giveaway')
 @login_required
 def giveaway_home():
-    arr = Post.Query.filter(is_deleted=0)
+    arr = Listings.Query.all()
     return flask.render_template('giveaway.html', arr=arr)
+
+
+@app.route('/view/<string:obj_id>')
+@login_required
+def view_listing(obj_id):
+    print obj_id
+    obj = Listings.Query.filter(objectId=obj_id)
+
+    return flask.render_template('view.html', obj=obj)
+
 
 @app.route('/giveaway/upload')
 @login_required
@@ -104,7 +114,7 @@ def giveaway_upload():
 def giveaway_add():
     post_content = request.args.get('post_content')
     user_id = request.args.get('user_id')
-    if 0 < len(post_content) < 140:
+    if len(post_content) < 140 and len(post_content)>0:
         post = Post(content=post_content, user_id=user_id, is_deleted=0, )
         post.save()
     else:

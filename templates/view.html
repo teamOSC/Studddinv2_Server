@@ -33,22 +33,24 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-  <a href="/upload">
-    <button class="btn btn-lg">
-  </a>
 
-  {% for i in arr %}
+    <button class="btn btn-lg">
+
+  {% for i in obj %}
       <div class="row post">
         <div class="col-md-12">
           <i id="upvote-icon" class="fa fa-sort-asc"></i>
-          <a href="/view/{{i.objectId}}">
-            <p class="title">{{i.listingDesc}} <img src="{{ i.image.url }}" </p>
-          </a>
+          <p class="title">{{ i.listingName }}</p>
+            <p>{{ i.listingDesc }}</p>
+            <p><img src="{{ i.image.url }}"></p>
+            <p>Owner Name : {{ i.ownerName }}</p>
+            <p>Contact : {{ i.mobile }}</p>
+
           <i id="flag-icon" class="fa fa-flag"></i>
           <hr>
         </div>
       </div>
   {%endfor%}
-
+</button>
 
 {% endblock %}
