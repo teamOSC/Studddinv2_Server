@@ -5,7 +5,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
     	oauth_token = session.get('oauth_token', None)
-        if oauth_token is None:
+        if oauth_token is None or oauth_token[0] is None:
             return redirect(url_for('register', next=request.url))
         return f(*args, **kwargs)
     return decorated_function
