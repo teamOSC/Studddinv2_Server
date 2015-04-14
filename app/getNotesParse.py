@@ -6,4 +6,7 @@ def gettingNotes():
 
     return notes
 
-    #print type(Notes.Query.all()[0].notesImages[0])
+def notesImages(objectID):
+    notes = Notes.Query.get(objectId=objectID)
+
+    return notes

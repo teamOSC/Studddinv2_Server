@@ -17,7 +17,7 @@
             <div style="width: 257px; height: 295px; float: left; margin-left: 10px; border: double; background-image: url('/static/img/bck.png'); font-size: 15px;">
                 <p align="center" style="margin-bottom: 0px; font-size: 20px;">{{ i.subjectName }}</p><p align="center" style="margin-top: 0px; margin-bottom: 0px">{{ i.topicName }}</p>
                 <div class="metro-tile" style="cursor: pointer; width: 230px; height: 230px; display: block; border: solid;  margin-left: 10px">
-                    <img src="{{ i.notesImages[0]['url'] }}" style="width: 224px; height: 224px">
+                    <a href="/notes/view?oid={{ i.objectId }}"><img src="{{ i.notesImages[0]['url'] }}" style="width: 224px; height: 224px" id="note"></a>
 				</div>
 
 			</div>
