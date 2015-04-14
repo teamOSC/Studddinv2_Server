@@ -27,9 +27,12 @@ def load_user(id):
 
 
 @app.route('/')
-def index():
-    return render_template('index.html')
+def landing():
+    return render_template('landingpage.html')
 
+@app.route('/home')
+def home():
+    return render_template('index.html')
 
 @app.route('/logout')
 def logout():

@@ -1,6 +1,6 @@
 *.pyc
-*.db
 *.sqlite
+.idea
 config.py
 credentials.py
 *.idea
