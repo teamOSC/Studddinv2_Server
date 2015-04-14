@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ 	<h1>OAuth Demo</h1>
+ 	{% for message in get_flashed_messages() %}
+ 	    <p><b>Error</b>: {{ message }}</p>
+ 	{% endfor %}
+ 	
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+
+{% block head %}{% endblock %}
+
+{% block content %}
+		
+
+	      <form class="form-horizontal" enctype="multipart/form-data" action='/upload' method='POST'>
+
+		      <div class="form-group">
+		        <label for="upload_xml" class="control-label col-xs-2">ShareAway</label>
+		      </div>
+		      <br><br>
+		      
+		      <div class="form-group">
+		        <label for="inputTitle" class="control-label col-xs-2">Title</label>
+		        <div class="col-xs-10">
+		          <input type="text" name='item_name' class="form-control" placeholder="My old mobile Phone, bags ..."
+		           data-validetta="required" >
+		        </div>
+		      </div>
+
+		      <div class="form-group">
+		        <label for="inputImage" class="control-label col-xs-2">Picture</label>
+		      </div>
+
+		      <div class="col-xs-offset-2 col-xs-10">
+			      		<div class="form-group">
+			      			<img id='image' name='item_image' src="http://placehold.it/200x200&text=Image" style:"width:250px,height:250px">
+			      		</div>
+			      		<div class="form-group">
+			      		  <input type="file" id="upload_img" name="image_file" data-validetta="required"/>
+			      		</div>
+		      </div>
+		      <input id="image_url" name="image_url" type="hidden">
+
+		      <div class="form-group">
+		        <label for="inputTitle" class="control-label col-xs-2">Description</label>
+		        <div class="col-xs-10">
+		          <input type="text" name='item_description' class="form-control" placeholder="n yeard old, in perfect condition .."
+		           data-validetta="required" >
+		        </div>
+		      </div>
+
+		      <br><br>
+		      <br><br>
+
+		      <div class="form-group">
+		        <label for="inputTitle" class="control-label col-xs-2">Name</label>
+		        <div class="col-xs-10">
+		          <input type="text" name='user_name' class="form-control" placeholder=""
+		           data-validetta="required" >
+		        </div>
+		      </div>
+
+		      <div class="form-group">
+		        <label for="inputTitle" class="control-label col-xs-2">Phone Number</label>
+		        <div class="col-xs-10">
+		          <input type="text" name='user_number' class="form-control" placeholder=""
+		           data-validetta="required" >
+		        </div>
+		      </div>
+
+		      <div class="form-group">
+		        <label for="inputTitle" class="control-label col-xs-2">Email</label>
+		        <div class="col-xs-10">
+		          <input type="text" name='user_email' class="form-control" placeholder=""
+		           data-validetta="required" >
+		        </div>
+		      </div>
+
+		      <div class="form-group">
+		        <div class="col-xs-offset-2 col-xs-10">
+		          <button type="submit" class="btn btn-primary">Submit</button>
+		        </div>
+		      </div>
+
+	    </form>
+
+
+{% endblock %}
+
+{% block script %}
+
+<script type="text/javascript">
+
+	function imgur_upload(file) {
+	  var url = "";
+	  var fd = new FormData();
+	  fd.append("image", file);
+	  //fd.append("key", "304d71d2e52d3a6606d1cd65f704b7a5cc21e082");
+	  fd.append("key", "6528448c258cff474ca9701c5bab6927");
+
+	  var xhr = new XMLHttpRequest();
+	  xhr.open("POST", "http://api.imgur.com/2/upload.json"); // Boooom!
+	  xhr.onload = function() {
+	    //url = JSON.parse(xhr.responseText).upload.links.imgur_page;
+	    url = JSON.parse(xhr.responseText).upload.links.original;
+	    console.log(url);
+	    $("#image_url").val(url);
+	   }
+	   xhr.send(fd);
+	 }
+
+	function handleFileSelect(evt) {
+	  var img = $('#image');
+	  var files = evt.target.files;
+	  f = files[0];
+	  var reader = new FileReader();
+	  reader.onload = (function(theFile) {
+	      return function(e) {
+	        img.attr("src",e.target.result);
+	        img.attr("title",theFile.name);
+	      };
+	  })(f);
+	  reader.readAsDataURL(f);
+	  imgur_upload(f);
+	};
+
+	document.getElementById('upload_img').addEventListener('change', handleFileSelect, false);
+
+</script>
+
+{% endblock %}

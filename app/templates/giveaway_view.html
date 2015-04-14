@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block title %}Index{% endblock %}
+
+
+{% block content %}
+
+    
+    <button class="btn btn-lg">
+
+  {% for i in obj %}
+      <div class="row post">
+        <div class="col-md-12">
+          <i id="upvote-icon" class="fa fa-sort-asc"></i>
+          <p class="title">{{ i.listingName }}</p>
+            <p>{{ i.listingDesc }}</p>
+            <p><img src="{{ i.image.url }}"></p>
+            <p>Owner Name : {{ i.ownerName }}</p>
+            <p>Contact : {{ i.mobile }}</p>
+
+          <i id="flag-icon" class="fa fa-flag"></i>
+          <hr>
+        </div>
+      </div>
+  {%endfor%}
+</button>
+
+{% endblock %}

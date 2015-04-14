@@ -1,0 +1,4 @@
+*.pyc
+*.db
+config.py
+credentials.py
