@@ -3,3 +3,4 @@
 *.sqlite
 config.py
 credentials.py
+*.idea

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+{% endblock %}
+
+{% block content %}
+
+ 	<h1>Notes Page</h1>
+
+
+
+    <div id="metro-array" style="display: inline-block;">
+
+						<div style="width: 257px; height: 280px; float: left; margin-left: 10px; border: double; background-color: cornflowerblue;">
+                            <p align="center">SC</p>
+
+							<div class="metro-tile" style="cursor: pointer; width: 230px; height: 230px; display: block; border: solid;  margin-left: 10px">
+
+                                <img src="{{ image }}" style="width: 224px; height: 224px">
+							</div>
+
+						</div>
+
+                        <div style="width: 257px; height: 280px; float: left; margin-left: 10px; border: double; background-color: cornflowerblue;">
+                            <p align="center">SC</p>
+
+							<div class="metro-tile" style="cursor: pointer; width: 230px; height: 230px; display: block; border: solid;  margin-left: 10px">
+
+                                SC Assignment
+							</div>
+
+						</div>
+
+
+
+					</div>
+ 	
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='js/tileJs.js') }}" type="text/javascript"></script>
+{% endblock %}

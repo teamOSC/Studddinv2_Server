@@ -6,6 +6,7 @@ from flask.ext.login import LoginManager, UserMixin, login_user, logout_user,\
     current_user
 
 from oauth import OAuthSignIn
+from getNotesParse import *
 
 
 db = SQLAlchemy(app)
@@ -69,3 +70,7 @@ def oauth_callback(provider):
     return redirect(url_for('index'))
 
 
+@app.route('/notes')
+def notes():
+    url = gettingNotes()
+    return render_template('notes.html', image = url)
