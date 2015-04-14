@@ -5,6 +5,7 @@
  * -- None of this css is required, its just for the demo ;)
  */
 
+/*
  body {
  	margin: 0px;
  	background:#eee url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAIAAADZSiLoAAAAHElEQVQIHWP48+fP9+/f////zwCkgBwQC4ghAACODRqkCkEF0QAAAABJRU5ErkJggg==) repeat;
@@ -14,6 +15,7 @@
 	color: #333;
 	font-weight: lighter;
  }
+*/
 
  #contents {
  	float: left;
