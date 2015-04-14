@@ -22,7 +22,7 @@ class LocalUser(UserMixin, db.Model):
 
 @lm.user_loader
 def load_user(id):
-    return User.query.get(int(id))
+    return LocalUser.query.get(int(id))
 
 
 @app.route('/')

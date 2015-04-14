@@ -1,5 +1,4 @@
 *.pyc
-*.db
 *.sqlite
 config.py
 credentials.py
