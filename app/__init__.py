@@ -2,7 +2,7 @@ from flask import Flask
 
 app = Flask(__name__)
 from app import views
-from credentails import fb_credentials,twitter_credentials
+from credentials import fb_credentials,twitter_credentials
 
 #app.secret_key = 'thisisarandomstring007becauseilovejamesbond'
 app.config['SECRET_KEY'] = 'thisisarandomstring007becauseilovejamesbond'

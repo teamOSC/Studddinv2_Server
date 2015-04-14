@@ -6,12 +6,18 @@ from flask.ext.login import LoginManager, UserMixin, login_user, logout_user,\
     current_user
 
 from oauth import OAuthSignIn
-from models import LocalUser
 
 
 db = SQLAlchemy(app)
 lm = LoginManager(app)
 lm.login_view = 'index'
+
+class LocalUser(UserMixin, db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    social_id = db.Column(db.String(64), nullable=False, unique=True)
+    nickname = db.Column(db.String(64), nullable=False)
+    email = db.Column(db.String(64), nullable=True)
 
 
 @lm.user_loader
