@@ -74,7 +74,7 @@ function Tile( element ){
 		// If the click is in the center quater of the element, push down.
 		if ( x > width/4 && x < (width/4 * 3) && y > height/4 && y < (height/4 * 3) ) {
 
-			translateString += "rotateX( 0deg ) rotateY( 0deg ) translateZ( -30px )";
+			translateString += "rotateX( 0deg ) rotateY( 0deg ) translateZ( 20px )";
 		}
 		
 		// is the user closer to the right/left hand side?

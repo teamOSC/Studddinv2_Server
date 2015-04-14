@@ -2,5 +2,8 @@ from models import *
 
 
 def gettingNotes():
-    return Notes.Query.all()[0].notesImages[0]['url']
+    notes = Notes.Query.all()
+
+    return notes
+
     #print type(Notes.Query.all()[0].notesImages[0])

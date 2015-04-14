@@ -75,5 +75,5 @@ def oauth_callback(provider):
 
 @app.route('/notes')
 def notes():
-    url = gettingNotes()
-    return render_template('notes.html', image = url)
+    notes = gettingNotes()
+    return render_template('notes.html', notes=notes)
