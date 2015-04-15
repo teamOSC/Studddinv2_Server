@@ -37,7 +37,7 @@ def home():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 
 @app.route('/authorize/<provider>')
@@ -70,7 +70,7 @@ def oauth_callback(provider):
         db.session.commit()
     login_user(user, True)
     
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 
 @app.route('/notes')
