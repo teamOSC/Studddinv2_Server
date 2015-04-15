@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <meta charset="UTF-8">
 <title>learnhut.in</title>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-<link rel="stylesheet" type="text/css" href="/static/css/style-main.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style-main.css') }}">
 {% block head %}
 
 {% endblock %}
@@ -71,8 +69,19 @@
 
   
 </div>
+  
+  <script src="{{ url_for('static', filename='js/jquery-2.1.1.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+  <script type="text/javascript">
+  $(".nav a").on("click", function(){
+       $(".nav").find(".active").removeClass("active");
+       $(this).parent().addClass("active");
+    });
+  </script>
 
   {% block script %}{% endblock %}
+  
 </body>
 
 </html>                                   
