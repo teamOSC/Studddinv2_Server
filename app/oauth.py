@@ -1,6 +1,9 @@
 from rauth import OAuth1Service, OAuth2Service
 from flask import current_app, url_for, request, redirect, session
+import json
+from models import *
 
+new_user = UserManager()
 
 class OAuthSignIn(object):
     providers = None
@@ -100,4 +103,5 @@ class TwitterSignIn(OAuthSignIn):
         me = oauth_session.get('account/verify_credentials.json').json()
         social_id = 'twitter$' + str(me.get('id'))
         username = me.get('screen_name')
+        new_user.login_twitter(me)
         return social_id, username, None   # Twitter does not provide email
