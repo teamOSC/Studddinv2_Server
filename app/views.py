@@ -78,6 +78,13 @@ def notes():
     notes = gettingNotes()
     return render_template('notes.html', notes=notes)
 
+
+@app.route('/notes/upload')
+def notesUpload():
+    notes = gettingNotes()
+    return render_template('notes.html', notes=notes)
+
+
 @app.route('/notes/<objID>')
 def viewNotes(objID): 
     notes = notesImages(objID)
