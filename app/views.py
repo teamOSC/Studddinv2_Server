@@ -78,9 +78,8 @@ def notes():
     notes = gettingNotes()
     return render_template('notes.html', notes=notes)
 
-@app.route('/notes/view', methods=['GET'])
-def viewNotes():
-    objID = request.args.get('oid')
+@app.route('/notes/<objID>')
+def viewNotes(objID): 
     notes = notesImages(objID)
     #print notes.notesImages
-    return render_template('viewNotes.html', notes=notes)
+    return render_template('notes.html', notes=notes)
