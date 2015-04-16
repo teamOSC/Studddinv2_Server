@@ -3,13 +3,19 @@ import flask, flask.views
 from flask import session, g, redirect, render_template, request, url_for, abort, flash
 import urllib2
 import json
-from scraper import DB,chanell_names
+#from scraper import DB,chanell_names
 from bs4 import BeautifulSoup
 import urllib
 import requests
 
 count = 0
 so_numbers = dict()
+
+def get_dict(**kwargs):
+    d= {}
+    for k,v in kwargs.iteritems():
+        d[k] = v
+    return d
 
 def get_original_image(thumbnail_url):
     #orig = thumbnail_url.replace('/thumb','')
@@ -70,7 +76,15 @@ def get_so_api_data(api_data, **kwargs):
 def youtube_api(query):
     url = "https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyD05WKF7JQ1hHmkgxb2L47OzApqaSy0pH8&q=%s"%query
     json = requests.get(url).json()
-    return json["items"]
+    arr = []
+    for i in json['items']:
+        img = i['snippet']['thumbnails']['medium']['url']
+        title = i['snippet']['title']
+        video_id = i['id']['videoId']
+        url = "https://www.youtube.com/watch?v=%s"%video_id
+        d = get_dict(img=img,title=title,url=url)
+        arr.append(d)
+    return arr
 
 def reddit_api(query):
     headers = {
@@ -79,7 +93,19 @@ def reddit_api(query):
     }
     url = "http://www.reddit.com/search.json?q=%s"%query
     json = requests.get(url, headers=headers).json()
-    return json["data"]["children"]
+    arr = []
+    for i in json["data"]["children"]:
+        if i['data']['over_18']: continue
+        title = i['data']['title']
+        img = i['data']['thumbnail']
+        if img == 'self':
+            img = "http://png-4.findicons.com/files/icons/1982/social_me/60/reddit.png"
+        url = i['data']['url']
+        d = get_dict(img=img,title=title,url=url)
+        arr.append(d)
+
+    return arr
+
 
 def get_so_data(query):
     stackoverflow_api(query)

@@ -1,4 +1,5 @@
-from flask import Flask,render_template, flash, redirect, make_response,request, url_for , session, g
+from flask import Flask,render_template, flash, redirect, \
+make_response,request, url_for , session, g, jsonify
 
 from app import app
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -7,7 +8,7 @@ from flask.ext.login import LoginManager, UserMixin, login_user, logout_user,\
 
 from oauth import OAuthSignIn
 from getNotesParse import *
-
+import search
 
 db = SQLAlchemy(app)
 lm = LoginManager(app)
@@ -90,3 +91,27 @@ def viewNotes(objID):
     notes = notesImages(objID)
     #print notes.notesImages
     return render_template('notes.html', notes=notes)
+
+
+@app.route('/search.json')
+def SearchApi():
+    q = request.args.get('q') or 0
+
+    if not q:
+        resp = jsonify(data={"GET request param q not specified"})
+        resp.status_code = 500
+        return resp
+        
+
+    wiki_data = search.scrape_wiki(q)
+    youtube_data = search.youtube_api(q)
+    reddit_data = search.reddit_api(q)
+    #so_data = search.get_so_data(q)
+
+    resp = jsonify(data={
+       'wiki_data':wiki_data,
+       'youtube_data':youtube_data,
+       'reddit_data':reddit_data,
+    })
+    resp.status_code = 200
+    return resp

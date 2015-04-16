@@ -5,3 +5,4 @@ pip install cssselect
 pip install git+https://github.com/dgrtwo/ParsePy.git
 pip install rauth
 pip install flask-login
+pip install PyDrive
