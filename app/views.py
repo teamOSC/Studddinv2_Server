@@ -92,7 +92,7 @@ def viewNotes(objID):
     #print notes.notesImages
     return render_template('notes.html', notes=notes)
 
-@app.route('/feed.json')
+@app.route('/api/feed')
 def Feed():
     q = 'fruits'
     wiki_data = search.scrape_wiki(q)
@@ -109,7 +109,7 @@ def Feed():
     return resp
 
 
-@app.route('/search.json')
+@app.route('/api/search')
 def SearchApi():
     q = request.args.get('q') or 0
 
