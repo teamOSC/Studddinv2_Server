@@ -8,6 +8,22 @@ import sys
 from bs4 import BeautifulSoup
 import urllib2
 from models import Feed
+import search
+
+def push2parse():
+    q = 'evolution'
+    category = 'Biology'
+    wiki_data = search.scrape_wiki(q)
+    youtube_data = search.youtube_api(q)
+    reddit_data = search.reddit_api(q)
+    super_arr = wiki_data+youtube_data+reddit_data
+
+    for i in super_arr:
+        f = Feed(title=i['title'],url=i['url'],\
+            image=i['img'],\
+            category=category)
+        f.save()
+
 
 def scrapeQuora():
     cat_string = 'Physics,Chemistry,Mathematics,Biology-1,Geography,Economics,History'
@@ -59,8 +75,8 @@ def test():
     print V.exec_query("Select * from video_db ORDER by RANDOM() limit 5")
 
 if __name__ == '__main__':
-    if sys.argv[1] == 'scrape':
-        scrapeQuora()   
+    if sys.argv[1] == 'push':
+        push2parse()   
     else:
         test()
 

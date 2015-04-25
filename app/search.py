@@ -80,7 +80,10 @@ def youtube_api(query):
     for i in json['items']:
         img = i['snippet']['thumbnails']['medium']['url']
         title = i['snippet']['title']
-        video_id = i['id']['videoId']
+        try:
+            video_id = i['id']['videoId']
+        except KeyError:
+            continue
         url = "https://www.youtube.com/watch?v=%s"%video_id
         d = get_dict(img=img,title=title,url=url)
         arr.append(d)
