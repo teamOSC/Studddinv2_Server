@@ -92,6 +92,22 @@ def viewNotes(objID):
     #print notes.notesImages
     return render_template('notes.html', notes=notes)
 
+@app.route('/feed.json')
+def Feed():
+    q = 'fruits'
+    wiki_data = search.scrape_wiki(q)
+    youtube_data = search.youtube_api(q)
+    reddit_data = search.reddit_api(q)
+    #so_data = search.get_so_data(q)
+
+    resp = jsonify(data={
+       'wiki_data':wiki_data,
+       'youtube_data':youtube_data,
+       'reddit_data':reddit_data,
+    })
+    resp.status_code = 200
+    return resp
+
 
 @app.route('/search.json')
 def SearchApi():
