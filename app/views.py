@@ -33,7 +33,19 @@ def landing():
 
 @app.route('/home')
 def home():
-    return render_template('index.html')
+    q = 'fruits'
+    # wiki_data = search.scrape_wiki(q)
+    # youtube_data = search.youtube_api(q)
+    reddit_data = search.reddit_api(q)
+    #so_data = search.get_so_data(q)
+
+    # data = {
+    #     'wiki_data':wiki_data,
+    #     'youtube_data':youtube_data,
+    #     'reddit_data':reddit_data,
+    # }
+    resp = reddit_data
+    return render_template('index.html', data=resp)
 
 @app.route('/logout')
 def logout():

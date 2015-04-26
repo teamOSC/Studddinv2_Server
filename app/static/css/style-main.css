@@ -6,8 +6,8 @@ html * {
 body {
   font-size: 200%;
   font-family: "Roboto", sans-serif;
-  background-color: #3f435f;
-  background: url('/static/img/bck.png');
+  background: #eee;//#59afe1;
+  /*background: url('/static/img/bck.png');*/
 }
 
 .content{

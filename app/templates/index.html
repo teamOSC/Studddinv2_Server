@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-
- 	<h1>Welcome of Learnhut.in</h1>
+	<!-- {{data}} -->
+	{% for post in data %}
+	 	<div class="post-index z-depth-1" style="background-color:white; margin-bottom:30px"><!-- still waiting for the day I'll get correct style without writing inline css -->
+		<h5>Reddit</h5>
+		<img class="responsive-img materialboxed" data-caption="CSS3 Image" src="http://www.thedrum.com/uploads/drum_basic_article/156824/main_images/ManchesterUnitedLogo_0.png" />
+		<a href="{{ post.url }}"><p>{{ post.title }}</p></a>
+		</div>
+	{% endfor %}
  	<p></p>
  	{% for message in get_flashed_messages() %}
  	    <p><b>Error</b>: {{ message }}</p>
