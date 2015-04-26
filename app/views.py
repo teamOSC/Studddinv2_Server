@@ -7,8 +7,9 @@ from flask.ext.login import LoginManager, UserMixin, login_user, logout_user,\
     current_user
 
 from oauth import OAuthSignIn
-from getNotesParse import *
 import search
+
+from models import Feed,Notes
 
 db = SQLAlchemy(app)
 lm = LoginManager(app)
@@ -33,18 +34,7 @@ def landing():
 
 @app.route('/home')
 def home():
-    q = 'fruits'
-    # wiki_data = search.scrape_wiki(q)
-    # youtube_data = search.youtube_api(q)
-    reddit_data = search.reddit_api(q)
-    #so_data = search.get_so_data(q)
-
-    # data = {
-    #     'wiki_data':wiki_data,
-    #     'youtube_data':youtube_data,
-    #     'reddit_data':reddit_data,
-    # }
-    resp = reddit_data
+    resp = Feed.Query.all()
     return render_template('index.html', data=resp)
 
 @app.route('/logout')
@@ -88,20 +78,19 @@ def oauth_callback(provider):
 
 @app.route('/notes')
 def notes():
-    notes = gettingNotes()
+    notes = Notes.Query.all()
     return render_template('notes.html', notes=notes)
 
 
 @app.route('/notes/upload')
 def notesUpload():
-    notes = gettingNotes()
+    notes = Notes.Query.all()
     return render_template('notes.html', notes=notes)
 
 
 @app.route('/notes/<objID>')
 def viewNotes(objID): 
-    notes = notesImages(objID)
-    #print notes.notesImages
+    notes = Notes.Query.get(objectId=objID)
     return render_template('notes.html', notes=notes)
 
 @app.route('/api/feed')

@@ -11,12 +11,12 @@ from models import Feed
 import search
 
 def push2parse():
-    q = 'evolution'
-    category = 'Biology'
+    q = 'space'
+    category = 'Astronomy'
     wiki_data = search.scrape_wiki(q)
     youtube_data = search.youtube_api(q)
     reddit_data = search.reddit_api(q)
-    super_arr = wiki_data+youtube_data+reddit_data
+    super_arr = wiki_data+youtube_data
 
     for i in super_arr:
         f = Feed(title=i['title'],url=i['url'],\
