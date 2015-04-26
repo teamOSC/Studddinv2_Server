@@ -9,7 +9,7 @@ from flask.ext.login import LoginManager, UserMixin, login_user, logout_user,\
 from oauth import OAuthSignIn
 import search
 
-from models import Feed,Notes
+from models import Feed, Notes
 
 db = SQLAlchemy(app)
 lm = LoginManager(app)
@@ -94,7 +94,7 @@ def viewNotes(objID):
     return render_template('notes.html', notes=notes)
 
 @app.route('/api/feed')
-def Feed():
+def feed():
     q = 'fruits'
     wiki_data = search.scrape_wiki(q)
     youtube_data = search.youtube_api(q)
