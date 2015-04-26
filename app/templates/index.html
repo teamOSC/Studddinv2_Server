@@ -3,12 +3,12 @@
 {% block content %}
 	<!-- {{data}} -->
 	{% for post in data %}
-		{{post.img}}
+		
 	 	<div class="feed-cards" style="backgorund-color:white"><!-- still waiting for the day I'll get correct style without writing inline css -->
 			<div class="row">
 			  
 			  <div class="col-md-4">
-			  	<img class="responsive-img materialboxed" data-caption="CSS3 Image" src="http://www.thedrum.com/uploads/drum_basic_article/156824/main_images/ManchesterUnitedLogo_0.png" />
+			  	<img class="responsive-img materialboxed" data-caption="CSS3 Image" src="{{post.image}}" />
 			  </div>
 
 			  <div class="col-md-8">
